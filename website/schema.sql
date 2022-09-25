@@ -14,7 +14,7 @@ CREATE TABLE upload (
     uploader TEXT NOT NULL,
     upload_path TEXT NOT NULL,
     thumbnail_path TEXT NOT NULL,
-    img_name TEXT NOT NULL,
+    upload_name TEXT NOT NULL,
     kind TEXT NOT NULL,
     upload_time TIMESTAMP NOT NULL 
 );

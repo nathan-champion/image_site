@@ -46,7 +46,7 @@ input[type=submit] {
 
 .container{
     background-color:chartreuse;
-    display:flex;
+    
     margin: auto;
     border:5px solid; 
     border-color: blanchedalmond;
@@ -80,7 +80,7 @@ input[type=submit] {
     padding: 0.25rem;
 }
 
-.label-and-upload {
+.upload-labelled-item {
     display:grid;
     padding: 0.25rem;
 }
@@ -112,4 +112,13 @@ input[type=submit] {
 
 .thumbnail-pic {
     height: 128px;
+}
+
+.thumbnail-name {
+    inline-size: 8rem;
+    overflow: hidden;
+}
+
+.spacer {
+    padding: 1rem;
 }

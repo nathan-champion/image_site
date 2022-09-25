@@ -26,6 +26,9 @@ My ongoing web page
                     <img src ="{{url_for('static', filename=item[0]) }}" alt={{ item[0] }}>
                 </a>
             </div>
+            <div class="thumbnail-name">
+                <strong> {{ item[2] }}</strong>
+            </div>
             <div class="thumbnail-uploader">
                 by <strong>{{ item[1] }}</strong>
             </div>

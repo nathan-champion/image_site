@@ -15,14 +15,14 @@ bp = Blueprint('site', __name__)
 @bp.route("/", methods=['GET'])
 def index():
     # now we want to get the latest uploads. 
-    query = "SELECT id, thumbnail_path, uploader FROM upload ORDER BY upload_time DESC LIMIT 20"
+    query = "SELECT id, thumbnail_path, uploader, upload_name FROM upload ORDER BY upload_time DESC LIMIT 20"
 
     db = get_db()
     result = db.execute(query)
     names = {}
 
     for item in result.fetchall():        
-        names.update({item['id']:(item["thumbnail_path"], item["uploader"])})
+        names.update({item['id']:(item["thumbnail_path"], item["uploader"], item["upload_name"])})
     return render_template("site/index.html", previews=names)
 
 

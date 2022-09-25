@@ -28,22 +28,28 @@ class UploadData(object):
         super(UploadData, self).__init__()
 
         self.uploader = uploader
-        self.t_filename = compose_filename(thumbnail)
-        self.u_filename = compose_filename(upload)
+        self.t_filename = self.compose_filename(thumbnail)
+        self.u_filename = self.compose_filename(upload)
         self.time = get_timestamp_now()
         self.time_hash = get_timestamp_hash(self.time, current_app.config['TIMESTAMP_HASH'])
         self.mimetype = upload.mimetype
 
     def get_time_hashed_name(self):
         return f"{self.time_hash}_{self.u_filename}"
-        pass
 
 
-def compose_filename(fileStorage: FileStorage):
-    if fileStorage.filename == '':
-        return ''
-    # secure filename
-    return secure_filename(fileStorage.filename)
+    def compose_filename(self, fileStorage: FileStorage):
+        if fileStorage.filename == '':
+            return ''
+        # secure filename
+        return secure_filename(fileStorage.filename)
+
+
+    def get_filename_without_suffix(self):
+        return Path(self.u_filename).stem
+
+
+
 
 
 def supports_upload(upload: FileStorage):
@@ -60,7 +66,7 @@ def save_upload_and_thumbnail(upload: FileStorage, thumbnail: FileStorage):
         upload_path = save_upload(upload, upload_data.time_hash)
 
         if (upload_path is not None and thumb_path is not None):
-            write_upload_to_storage(upload_data, upload_path.as_posix(), thumb_path.as_posix())
+            write_upload_to_database(upload_data, upload_path.as_posix(), thumb_path.as_posix())
     except:
         if thumb_path is None:
             return "There was a problem saving your thumbnail!"
@@ -72,12 +78,12 @@ def save_upload_and_thumbnail(upload: FileStorage, thumbnail: FileStorage):
     return None      
 
         
-def write_upload_to_storage(upload: UploadData, upload_path, thumb_path):
+def write_upload_to_database(upload: UploadData, upload_path, thumb_path):
     print("Writing to database")
     db = get_db()
     db.execute(
-        "INSERT INTO upload (uploader, upload_path, thumbnail_path, img_name, kind, upload_time) VALUES(?, ?, ?, ?, ?, ?)",
-        (upload.uploader, upload_path, thumb_path, upload.u_filename, upload.mimetype, upload.time ) 
+        "INSERT INTO upload (uploader, upload_path, thumbnail_path, upload_name, kind, upload_time) VALUES(?, ?, ?, ?, ?, ?)",
+        (upload.uploader, upload_path, thumb_path, upload.get_filename_without_suffix(), upload.mimetype, upload.time ) 
     )
     db.commit()
 
@@ -139,7 +145,6 @@ def __remove_all_files__(directory):
     for file in just_files:
         os.remove(directory / file)
     
-
 
 def init_app(app):
     app.cli.add_command(wipe_uploads_command)

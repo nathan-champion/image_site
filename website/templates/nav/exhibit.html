@@ -11,12 +11,10 @@
 {% endblock %}
 
 {% block content %}
+<div class="container">
 {% if 'image' in kind %}
-<div class="container">
     <img src ="{{ url_for('static', filename=path) }}" alt=User Image>
-</div>
 {% elif 'audio' in kind %}
-<div class="container">
     <div class="player-house">
         <div class="thumbnail-item">
             <img src="{{ url_for('static', filename=thumbnail) }}" alt=Thumbnail>
@@ -25,7 +23,15 @@
             <source src="{{ url_for('static', filename=path) }}" type="{{ kind }}">
         </audio>
     </div>
-</div>
 {% endif %}
+</div>
+<div class="spacer">
+
+</div>
+<div class="container">
+    <div class="exhibit-info">
+        <strong>{{ name }}</strong> by <strong>{{ author }}</strong>
+    </div>
+</div>
     
 {% endblock %}

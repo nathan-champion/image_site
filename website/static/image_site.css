@@ -1,0 +1,115 @@
+audio {
+    width: 50rem;
+}
+
+body {
+    background-color: powderblue;
+    min-width: 50rem;
+}
+
+h1 {
+    color: blue;
+}
+
+p {
+    color: red;
+    display: inline;
+    margin:0
+}
+
+nav {
+    background-color: lightsteelblue;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    padding:0;
+    margin:0;
+}
+
+nav li {
+    padding: 0.5rem;
+}
+
+input[type=submit] {
+    display:block;
+    margin: 0 auto;
+}
+
+.column {
+    background-color: mediumslateblue;
+    flex: 50%;
+    margin-left: 10rem;
+    margin-right: 10rem;
+}
+
+.container{
+    background-color:chartreuse;
+    display:flex;
+    margin: auto;
+    border:5px solid; 
+    border-color: blanchedalmond;
+    padding-left: 1.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    padding-right: 1.5rem;
+    width: fit-content;
+}
+
+.error_message {
+    margin-bottom: 1.5rem;
+    background-color: lightcoral;
+    margin: auto;
+    margin-bottom: 1rem;
+    padding: 0.1rem;
+    border: 2px solid;
+    border-color: red;
+    text-align: center;
+    width: 20rem;
+}
+
+.heading{
+    margin:auto;
+    width: 50%;
+    text-align: center;
+}
+
+.label-and-input {
+    text-align: right;
+    padding: 0.25rem;
+}
+
+.label-and-upload {
+    display:grid;
+    padding: 0.25rem;
+}
+
+.menu-right {
+    display: flex;   
+}
+
+.player-house {
+    width: 50rem;
+    text-align: center;
+}
+
+.row{
+    margin-top: 1rem;
+    display:flex;
+}
+
+.thumbnail-house {
+    display: flex;  
+    flex-wrap: wrap;
+    justify-content: center;   
+}
+
+.thumbnail-item {
+    text-align: center;
+    padding:0.5rem
+}
+
+.thumbnail-pic {
+    height: 128px;
+}

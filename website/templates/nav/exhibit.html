@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    
+{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet" href={{ url_for('static', filename='image_site.css') }}>    
+
+{% endblock %}
+
+{% block content %}
+{% if 'image' in kind %}
+<div class="container">
+    <img src ="{{ url_for('static', filename=path) }}" alt=User Image>
+</div>
+{% elif 'audio' in kind %}
+<div class="container">
+    <div class="player-house">
+        <div class="thumbnail-item">
+            <img src="{{ url_for('static', filename=thumbnail) }}" alt=Thumbnail>
+        </div>
+        <audio controls>
+            <source src="{{ url_for('static', filename=path) }}" type="{{ kind }}">
+        </audio>
+    </div>
+</div>
+{% endif %}
+    
+{% endblock %}

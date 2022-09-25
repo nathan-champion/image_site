@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+
+<link rel="stylesheet" href={{ url_for('static', filename='image_site.css') }}>
+    
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form id="test" enctype="multipart/form-data" action="/upload" method = "POST">
+        <div class="label-and-upload">
+            <label>Select file to upload</label>
+            <input type="file" name="filename" />
+        </div>
+        <div class="label-and-upload">
+            <label>Select an optional thumbnail</label>
+            <input type="file" name="thumbnail"/>
+        </div>
+        <button type="submit">Upload</button>
+    </form>
+</div>
+{% endblock %}

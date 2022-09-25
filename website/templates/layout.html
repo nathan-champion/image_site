@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block head %}
+            
+        {% endblock %}
+        <title>{% block title %} {% endblock %}</title>
+        {% block css %}  
+        {% endblock %}
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a>
+                <li><a href="{{ url_for('upload') }}">Upload</a>
+            {% if g.user['username'] %}
+                <li><span>{{ g.user['username'] }}</span>
+                <li><a href="{{ url_for('auth.logout') }}">Logout</a>
+            {% else %}
+                <li><a href="{{ url_for('auth.login') }}">Login</a>
+                <li><a href="{{ url_for('auth.create_account') }}">Create Account</a>                
+            {% endif %}
+            </ul>
+        </nav>  
+        <header>
+            {% block header %}
+                
+            {% endblock %}
+        </header>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}    
+                <div class="error_message">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}
+
+        {% endblock %}
+    </body>
+</html>

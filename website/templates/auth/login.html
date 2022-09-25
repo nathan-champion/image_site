@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+    
+{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet" href={{ url_for('static', filename='image_site.css') }}>
+    
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="alignment-helper">
+        <form method="POST">
+            <div class="label-and-input">
+                <label>Username</label>
+                <input id="login" name="username" class="login" type="text">
+            </div>
+            <div class="label-and-input">
+                <label>Password</label>
+                <input id="password" name="password" class="login" type="password">
+            </div>
+            <input type="submit" value="Login to site">
+        </form>
+    </div>
+</div>
+    
+{% endblock %}

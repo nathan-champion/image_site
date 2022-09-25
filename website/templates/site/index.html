@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}
+My ongoing web page
+{% endblock %}
+
+
+{% block css %}
+
+<link rel="stylesheet" href={{ url_for('static', filename='image_site.css') }}>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="heading">
+    <h1>My personal web page!!</h1>
+</div>
+
+<div class="container">
+    <div class="thumbnail-house">
+        {% for id, item in previews.items() %}
+        <div class="thumbnail-item">
+            <div class="thumbnail-pic">
+                <a href="nav/exhibit/{{ id }}">
+                    <img src ="{{url_for('static', filename=item[0]) }}" alt={{ item[0] }}>
+                </a>
+            </div>
+            <div class="thumbnail-uploader">
+                by <strong>{{ item[1] }}</strong>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="column">
+        Left
+    </div>
+    <div class="column">
+        Right
+    </div>
+</div>
+
+{% endblock %}

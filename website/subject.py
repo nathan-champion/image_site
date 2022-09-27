@@ -7,8 +7,7 @@ from website.db import get_db
 bp = Blueprint('subject', __name__, url_prefix='/nav')
 
 @bp.route("/exhibit/<name>", methods=['GET'])
-def exhibit(name):
-    
+def exhibit(name):  
     db = get_db()
     exhibit = db.execute("SELECT upload_path, kind, thumbnail_path, upload_name, uploader FROM upload WHERE id = ?", (name,)).fetchone()
     path = exhibit['upload_path']
@@ -20,9 +19,12 @@ def exhibit(name):
     return render_template("nav/exhibit.html", path=path, kind=kind, thumbnail=thumbnail, name=name, author=author)
 
 
-def get_upload_type_from_filename(filename: str):
-    parts = filename.split('/')
-    if len(parts) > 2:
-        return parts[1]
-    else:
-        return ''
+@bp.route("/user/<name>", methods=['GET'])
+def user_page(name):
+    db = get_db()
+    thumbnails = []
+    exhibits = db.execute("SELECT thumbnail_path, upload_name, id FROM upload WHERE uploader = ? ORDER BY upload_time DESC LIMIT 20", (name,))
+    for item in exhibits.fetchall():
+        thumbnails.append((item['thumbnail_path'], item['upload_name'], item['id']))
+
+    return render_template("nav/user.html", name=name, thumbnails=thumbnails) 

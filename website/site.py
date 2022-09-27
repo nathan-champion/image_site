@@ -19,11 +19,11 @@ def index():
 
     db = get_db()
     result = db.execute(query)
-    names = {}
+    previews = {}
 
     for item in result.fetchall():        
-        names.update({item['id']:(item["thumbnail_path"], item["uploader"], item["upload_name"])})
-    return render_template("site/index.html", previews=names)
+        previews.update({item['id']:(item["thumbnail_path"], item["uploader"], item["upload_name"])})
+    return render_template("site/index.html", previews=previews)
 
 
 @bp.route("/upload", methods=['GET', 'POST'])

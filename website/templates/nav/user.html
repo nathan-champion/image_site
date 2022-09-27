@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+
+<link rel="stylesheet" href={{ url_for('static', filename='image_site.css') }}>
+    
+{% endblock %}
+
+
+{% block content %}
+This is {{ name }}'s user page!    
+
+<div class="container">
+    <div class="thumbnail-house">
+        {% for item in thumbnails %}
+        <div class="thumbnail-item">
+            <div class="thumbnail-pic">
+                <a href="/nav/exhibit/{{ item[2] }}">
+                    <img src="{{ url_for('static', filename=item[0]) }}">
+                </a>
+            </div>
+            <div class="thumbnail-name">
+                <strong>{{ item[1] }}</strong>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

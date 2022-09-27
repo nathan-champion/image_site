@@ -50,8 +50,6 @@ class UploadData(object):
 
 
 
-
-
 def supports_upload(upload: FileStorage):
     for type in current_app.config['SUPPORTED_UPLOADS']:
         if upload.mimetype.find(type) != -1:
@@ -117,7 +115,7 @@ def save_thumbnail(upload: FileStorage, thumbnail: FileStorage, timestamp_hash):
     return Path(*thumb_path.parts[2:])
 
 
-def save_upload(upload, timestamp_hash):
+def save_upload(upload: FileStorage, timestamp_hash):
     upload_type = get_mimetype_type(upload.mimetype)
     s_name = secure_filename(upload.filename)
     base_path = current_app.config['UPLOAD_FOLDERS'][upload_type]

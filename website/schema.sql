@@ -6,7 +6,8 @@ CREATE TABLE user (
     username TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
-    role TEXT NOT NULL
+    role TEXT NOT NULL,
+    featured INTEGER
 );
 
 CREATE TABLE upload (

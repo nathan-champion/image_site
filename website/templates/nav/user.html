@@ -8,7 +8,25 @@
 
 
 {% block content %}
-This is {{ name }}'s user page!    
+
+{% if featured != None %}
+<div class="container">
+    <h2>Featured Exhibit</h1>
+    <div class="thumbnail-house">
+        <div class="thumbnail-item">
+            <div class="thumbnail-pic">
+                <a href="/nav/exhibit/{{ featured['id'] }}">
+                    <img src="{{ url_for('static', filename=featured['thumbnail_path']) }}">
+                </a>
+            </div>
+            <div class="thumbnail-name">
+                <strong>{{ featured['upload_name'] }}</strong>
+            </div>
+        </div>
+    </div>    
+</div>
+{% endif %}  
+
 
 <div class="container">
     <div class="thumbnail-house">

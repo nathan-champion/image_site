@@ -32,6 +32,15 @@
     <div class="exhibit-info">
         <strong>{{ name }}</strong> by 
         <a href="/nav/user/{{ author }}"><strong>{{ author }}</strong></a>
+        {% if author == g.user['username'] and id|string() != featured|string() %}
+        {
+        <div class="make-favorite">
+            <form action="" method="post">
+                <input type="hidden", name="to-feature", value="{{ id }}">
+                <button type="submit">Make Featured</button>
+            </form>
+        </div>
+        {% endif %}
     </div>
 </div>
     

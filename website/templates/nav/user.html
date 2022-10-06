@@ -1,14 +1,14 @@
 {% extends 'layout.html' %}
 
 {% block css %}
-
 <link rel="stylesheet" href={{ url_for('static', filename='image_site.css') }}>
-    
 {% endblock %}
 
+{% block title %}
+Userpage for {{ name }}    
+{% endblock %}
 
 {% block content %}
-
 {% if featured != None %}
 <div class="container">
     <h2>Featured Exhibit</h1>

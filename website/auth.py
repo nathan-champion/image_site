@@ -17,6 +17,7 @@ def create_account():
  
         username = request.form['username']
         password = request.form['password']
+        confirm = request.form['confirm']
         email = request.form['email']
         
         db = get_db()
@@ -28,6 +29,9 @@ def create_account():
             error = 'A password is required'
         elif not email:
             error = 'An email is required'
+        
+        if password != confirm:
+            error = 'Your entered passwords do not match!'
 
         if error is None:
             try:

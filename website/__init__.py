@@ -35,13 +35,13 @@ def create_app(test_config=None):
     uploads.init_app(app)
 
     from . import auth
-    app.register_blueprint(auth.bp)
+    app.register_blueprint(auth.bp, url_prefix='/auth')
 
     from . import site
     app.register_blueprint(site.bp)
 
     from . import subject
-    app.register_blueprint(subject.bp)
+    app.register_blueprint(subject.bp, url_prefix='/nav')
     # this is here because we're referring to the home page as "index"
     # in several places in auth.py.  Without this, we'd have to call
     # <folder>.index

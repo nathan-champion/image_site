@@ -4,7 +4,7 @@ from flask import (
 
 from website.db import get_db
 
-bp = Blueprint('subject', __name__, url_prefix='/nav')
+bp = Blueprint('subject', __name__)
 
 
 @bp.route("/exhibit/<id>", methods=['GET', 'POST'])

@@ -2,3 +2,4 @@ website/static/uploads/
 instance/
 website/static/thumbnails/
 website/__pycache__
+*.egg-info/

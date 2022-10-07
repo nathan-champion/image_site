@@ -1,25 +1,19 @@
-from email.mime import audio, base, image
-from math import factorial
-from sqlite3 import Timestamp
 from flask import (
-    g, current_app, session, url_for
+    current_app, session
 )
-
-from pathlib import Path
 
 from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
+
+from pathlib import Path
+from PIL import Image
+import click
+import os
 
 from website.db import get_db
 from website.utils import get_centered_rectangle, get_mimetype_type
 from website.utils import get_timestamp_hash
 from website.utils import get_timestamp_now
-
-from PIL import Image
-
-import click
-
-import os
 
 
 class UploadData(object):

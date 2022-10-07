@@ -4,6 +4,7 @@ import click
 from flask import current_app, g
 from werkzeug.security import generate_password_hash
 
+
 def get_db():
     if 'db' not in g:
         g.db = sqlite3.connect(

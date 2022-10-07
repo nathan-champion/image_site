@@ -4,6 +4,7 @@ from flask import (
 
 from website.db import get_db
 
+
 bp = Blueprint('subject', __name__)
 
 

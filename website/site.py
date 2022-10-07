@@ -1,4 +1,3 @@
-from ast import Not
 from flask import (
     Blueprint, flash, redirect, render_template, request, url_for
 )
@@ -8,6 +7,7 @@ from website.db import get_db
 from website.uploads import save_upload_and_thumbnail
 from website.uploads import supports_upload
 from website.uploads import is_image
+
 
 bp = Blueprint('site', __name__)
 

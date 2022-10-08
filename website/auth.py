@@ -21,22 +21,29 @@ def create_account():
         password = request.form['password']
         confirm = request.form['confirm']
         email = request.form['email']
-        
-        db = get_db()
-        error = None
+
+        error = False
 
         if not username:
-            error = 'A username is required'
-        elif not password:
-            error = 'A password is required'
-        elif not email:
-            error = 'An email is required'
+            error = True
+            flash('A username is required')
+        if not password:
+            error = True
+            flash('A password is required')
+        if not email:
+            error = True
+            flash('An email is required')
+        if not confirm:
+            error = True
+            flash('You must enter your password twice!')
         
         if password != confirm:
-            error = 'Your entered passwords do not match!'
+            flash('Your entered passwords do not match!')
+            error = True
 
-        if error is None:
+        if error is False:
             try:
+                db = get_db()
                 db.execute(
                     "INSERT INTO user (username, password, email, role) VALUES(?, ?, ?, ?)",
                     (username, generate_password_hash(password), email, "user")
@@ -46,8 +53,6 @@ def create_account():
                 error = "Some part of the user is already registered!"
             else:
                 return redirect(url_for("auth.login"))
-            
-        flash(error)
    
     return render_template("auth/create_account.html", hide_error="hidden")
 
@@ -60,22 +65,22 @@ def login():
         password = request.form['password']
 
         db = get_db()
-        error = None
+        error = False
         user = db.execute(
         'SELECT * FROM user WHERE username = ?', (username,)
         ).fetchone()
 
         if user is None:
-            error = 'Incorrect username.'
+            error = True
+            flash('Incorrect username.')
         elif not check_password_hash(user['password'], password):
-            error = 'Incorrect password.'
+            error = True
+            flash('Incorrect password.')
 
-        if error is None:
+        if error is False:
             session.clear()
             session['user_id'] = user['username']
             return redirect(url_for('index'))
-
-        flash(error)
 
     return render_template("auth/login.html")
 

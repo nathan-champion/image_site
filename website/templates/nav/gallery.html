@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+<link rel="stylesheet" href={{ url_for('static', filename='image_site.css') }}>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="container-title">
+        <h2>Page {{ page|int + 1 }}</h2>
+    </div>
+    <div class="thumbnail-house">
+        {% for path, name, id in exhibits %}
+            <div class="thumbnail-item">
+                <div class="thumbnail-pic">
+                    <a href="/nav/exhibit/{{ id }}">
+                        <img src="{{ url_for('static', filename=path) }}">
+                    </a>
+                </div>
+                <div class="thumbnail-name">
+                    <strong>{{ name }}</strong>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="gallery-nav">
+        {% if offset > 0 %}
+            <a href="/nav/gallery/{{ name }}/{{ page|int - 1 }}">
+                Previous
+            </a>
+        {% endif %}
+        {% if offset + limit < count %}
+            <a href="/nav/gallery/{{ name }}/{{ page|int + 1 }}">
+                Next
+            </a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

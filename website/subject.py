@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, render_template, request
+    Blueprint, render_template, request, session, current_app
 )
 
 from website.db import get_db
@@ -28,10 +28,32 @@ def exhibit(id):
 @bp.route("/user/<name>", methods=['GET'])
 def user_page(name):
     db = get_db()
+    print(session['user_id'] == name)
     thumbnails = []
     featured = db.execute("SELECT thumbnail_path, upload_name, id FROM upload WHERE id = (SELECT featured FROM user WHERE username = ?)", (name,)).fetchone()
-    exhibits = db.execute("SELECT thumbnail_path, upload_name, id FROM upload WHERE uploader = ? ORDER BY upload_time DESC LIMIT 20", (name,))
+    exhibits = db.execute("SELECT thumbnail_path, upload_name, id FROM upload WHERE uploader = ? ORDER BY upload_time DESC LIMIT 8", (name,))
     for item in exhibits.fetchall():
         thumbnails.append((item['thumbnail_path'], item['upload_name'], item['id']))
 
     return render_template("nav/user.html", name=name, thumbnails=thumbnails, featured=featured) 
+
+
+@bp.route("/gallery/<name>", methods=['GET'])
+@bp.route("/gallery/<name>/<page>", methods=['GET'])
+def gallery(name, page=0):
+    db = get_db()
+    print(page)
+    count = db.execute("SELECT COUNT(id) from upload WHERE uploader = ?", (name,)).fetchone()[0]
+    
+    offset = int(page) * int(current_app.config['EXHIBIT_LIMIT_GALLERY'])
+    limit = int(current_app.config['EXHIBIT_LIMIT_GALLERY'])
+    
+    if count - offset < limit:
+        limit = count - offset
+
+
+    print(f"offset is {offset}")
+    print(f"limit is {limit}")
+    exhibits = db.execute("SELECT thumbnail_path, upload_name, id FROM upload WHERE uploader = ? ORDER BY upload_time DESC LIMIT ? OFFSET ?", (name, limit, offset,)).fetchall()
+
+    return render_template("nav/gallery.html", exhibits=exhibits, offset=offset, limit=limit, count=count, page=page, name=name)

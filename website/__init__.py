@@ -15,7 +15,8 @@ def create_app(test_config=None):
                         'audio': 'website/static/thumbnails/default/default_aud.jpg'},
         UPLOAD_FOLDERS={'image': 'website/static/uploads/images',
                         'audio': 'website/static/uploads/audio'},
-        TIMESTAMP_HASH='md5'
+        TIMESTAMP_HASH='md5',
+        EXHIBIT_LIMIT_GALLERY='8'
     )
 
     if test_config is None:

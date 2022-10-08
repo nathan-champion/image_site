@@ -46,7 +46,6 @@ input[type=submit] {
 
 .container{
     background-color:chartreuse;
-    
     margin: auto;
     border:5px solid; 
     border-color: blanchedalmond;
@@ -57,7 +56,12 @@ input[type=submit] {
     width: fit-content;
 }
 
-.error_message {
+.container-title {
+    margin: 0rem;
+    text-align: center;
+}
+
+.error_box {
     margin-bottom: 1.5rem;
     background-color: lightcoral;
     margin: auto;
@@ -67,6 +71,10 @@ input[type=submit] {
     border-color: red;
     text-align: center;
     width: 20rem;
+}
+
+.error_message {
+    display: block;
 }
 
 .heading{

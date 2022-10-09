@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, render_template, request, session, current_app
+    Blueprint, render_template, request, current_app
 )
 
 from website.db import get_db
@@ -27,7 +27,6 @@ def exhibit(id):
 
 @bp.route("/user/<name>", methods=['GET'])
 def user_page(name):
-    
     db = get_db()
     thumbnails = []
     featured = db.execute("SELECT thumbnail_path, upload_name, id FROM upload WHERE id = (SELECT featured FROM user WHERE username = ?)", (name,)).fetchone()
@@ -42,19 +41,14 @@ def user_page(name):
 @bp.route("/gallery/<name>/<page>", methods=['GET'])
 def gallery(name, page=0):
     db = get_db()
-    print(page)
     count = db.execute("SELECT COUNT(id) from upload WHERE uploader = ?", (name,)).fetchone()[0]
     
     limit = current_app.config['EXHIBIT_LIMIT_GALLERY']
     offset = int(page) * limit
-    
-    
+     
     if count - offset < limit:
         limit = count - offset
 
-
-    print(f"offset is {offset}")
-    print(f"limit is {limit}")
     exhibits = db.execute("SELECT thumbnail_path, upload_name, id FROM upload WHERE uploader = ? ORDER BY upload_time DESC LIMIT ? OFFSET ?", (name, limit, offset,)).fetchall()
 
     return render_template("nav/gallery.html", exhibits=exhibits, offset=offset, limit=limit, count=count, page=page, name=name)

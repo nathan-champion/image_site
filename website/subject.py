@@ -27,8 +27,8 @@ def exhibit(id):
 
 @bp.route("/user/<name>", methods=['GET'])
 def user_page(name):
+    
     db = get_db()
-    print(session['user_id'] == name)
     thumbnails = []
     featured = db.execute("SELECT thumbnail_path, upload_name, id FROM upload WHERE id = (SELECT featured FROM user WHERE username = ?)", (name,)).fetchone()
     exhibits = db.execute("SELECT thumbnail_path, upload_name, id FROM upload WHERE uploader = ? ORDER BY upload_time DESC LIMIT 8", (name,))
@@ -45,8 +45,9 @@ def gallery(name, page=0):
     print(page)
     count = db.execute("SELECT COUNT(id) from upload WHERE uploader = ?", (name,)).fetchone()[0]
     
-    offset = int(page) * int(current_app.config['EXHIBIT_LIMIT_GALLERY'])
-    limit = int(current_app.config['EXHIBIT_LIMIT_GALLERY'])
+    limit = current_app.config['EXHIBIT_LIMIT_GALLERY']
+    offset = int(page) * limit
+    
     
     if count - offset < limit:
         limit = count - offset

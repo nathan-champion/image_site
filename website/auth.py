@@ -112,3 +112,8 @@ def login_required(view):
         return view(**kwargs)
 
     return wrapped_view
+
+
+def user_exists(name):
+    val = get_db().execute("SELECT EXISTS(SELECT id FROM user WHERE username = ?)", (name,)).fetchone()
+    return val[0] == 1

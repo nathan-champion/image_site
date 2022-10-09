@@ -10,10 +10,11 @@ from PIL import Image
 import click
 import os
 
-from website.db import get_db
-from website.utils import get_centered_rectangle, get_mimetype_type
-from website.utils import get_timestamp_hash
-from website.utils import get_timestamp_now
+from .db import get_db
+from .auth import user_exists
+from .utils import get_centered_rectangle, get_mimetype_type
+from .utils import get_timestamp_hash
+from .utils import get_timestamp_now
 
 
 class UploadData(object):
@@ -51,8 +52,13 @@ def supports_upload(upload: FileStorage):
     return False
 
 
-def save_upload_and_thumbnail(upload: FileStorage, thumbnail: FileStorage):   
-    upload_data = UploadData(session.get('user_id'), thumbnail, upload)
+def save_upload_and_thumbnail(upload: FileStorage, thumbnail: FileStorage):  
+    user_id = session.get('user_id') 
+    if not user_exists(user_id):
+        return "User does not exist in database."
+
+    upload_data = UploadData(user_id, thumbnail, upload)
+    # maybe confirm here that the user is in the database?
     try:
         thumb_path = save_thumbnail(upload, thumbnail, upload_data.time_hash)   
         upload_path = save_upload(upload, upload_data.time_hash)
@@ -71,7 +77,6 @@ def save_upload_and_thumbnail(upload: FileStorage, thumbnail: FileStorage):
 
         
 def write_upload_to_database(upload: UploadData, upload_path, thumb_path):
-    print("Writing to database")
     db = get_db()
     db.execute(
         "INSERT INTO upload (uploader, upload_path, thumbnail_path, upload_name, kind, upload_time) VALUES(?, ?, ?, ?, ?, ?)",

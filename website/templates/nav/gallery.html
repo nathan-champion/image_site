@@ -27,14 +27,14 @@
         {% if offset > 0 %}
             <div class="previous">
                 <a href="/nav/gallery/{{ name }}/{{ page|int - 1 }}">
-                    Previous
+                    <button>Previous</button>
                 </a>
             </div>
         {% endif %}
         {% if offset + limit < count %}
             <div class="next">
                 <a href="/nav/gallery/{{ name }}/{{ page|int + 1 }}">
-                    Next
+                    <button>Next</button>
                 </a>
             </div>
         {% endif %}

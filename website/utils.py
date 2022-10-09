@@ -30,4 +30,4 @@ def get_centered_rectangle(width, height):
         bottom = (height / 2) + (width / 2)
             
     return (left, top, right, bottom)
-
+    

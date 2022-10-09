@@ -25,15 +25,20 @@
     </div>
     <div class="gallery-nav">
         {% if offset > 0 %}
-            <a href="/nav/gallery/{{ name }}/{{ page|int - 1 }}">
-                Previous
-            </a>
+            <div class="previous">
+                <a href="/nav/gallery/{{ name }}/{{ page|int - 1 }}">
+                    Previous
+                </a>
+            </div>
         {% endif %}
         {% if offset + limit < count %}
-            <a href="/nav/gallery/{{ name }}/{{ page|int + 1 }}">
-                Next
-            </a>
+            <div class="next">
+                <a href="/nav/gallery/{{ name }}/{{ page|int + 1 }}">
+                    Next
+                </a>
+            </div>
         {% endif %}
+        <div style="clear: both;"></div>
     </div>
 </div>
 {% endblock %}

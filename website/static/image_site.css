@@ -130,3 +130,15 @@ input[type=submit] {
 .spacer {
     padding: 1rem;
 }
+
+.gallery-nav {
+
+}
+
+.previous {
+   float:left;
+}
+
+.next {
+   float:right;
+}
